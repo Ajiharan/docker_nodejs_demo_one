@@ -1,0 +1,32 @@
+/*view docker images*/
+docker images
+
+/*view containers*/
+docker ps
+
+/*view running containers*/
+docker ps -a
+
+/*delete container*/
+docker rm <container-name>
+
+
+/*delete docker images*/
+docker rmi <docker-image-name>
+
+/*run docker in background*/
+docker run -d <container-name>
+
+
+/*store database volume data*/
+docker run -v /opt/datadir:/var/lib/mysql mysql
+
+
+/*docker environment varable*/
+docker run -a APP_COLOR=blue simple-web-app-color
+
+/*inspect docker container*/
+docker inspect <docker-container-name>
+
+/*docker failure*/
+docker build Dockerfile -t haran/rest-api-project
