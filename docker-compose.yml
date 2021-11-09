@@ -1,28 +1,28 @@
 version: "3.8"
 
 services:
-  mysqldb:
+  db:
     image: mysql
     env_file: ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=""
+      - MYSQL_USER="root"
       - MYSQL_ALLOW_EMPTY_PASSWORD= "yes"
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQL_PASSWORD=""
     ports:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
-      - db:/var/lib/mysql
+      - "./docker/db/data:/var/lib/mysql"
   app:
     depends_on:
-      - mysqldb
+      - db
     build: .
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
-      - DB_HOST=mysqldb
-      - DB_USER=$MYSQLDB_USER
-      - DB_PASSWORD=""
+      - DB_HOST=db
       - DB_NAME=$MYSQLDB_DATABASE
       - DB_PORT=$MYSQLDB_DOCKER_PORT
     stdin_open: true
